@@ -1,0 +1,74 @@
+# Maintainer=rafaelsoaresbr <rafaelsoaresbr at gmail dot com>
+# appimagekit
+# Contributing: https://github.com/rafaelsoaresbr/appimagekit.git
+# Builds: https://gitlab.com/rafaelsoaresbr/appimagekit/builds
+#pkgbase=
+pkgname=appimagekit
+
+# Version
+pkgver=5
+pkgrel=1
+#epoch=
+
+# Generic
+pkgdesc="Linux apps that run anywhere"
+arch=('i686' 'x86_64')
+url="http://appimage.org/"
+license=('MIT')
+#groups=()
+
+# Dependencies
+#depends=()
+#optdepends=()
+makedepends=('git' 'cmake' 'fuse' 'glib2' 'zlib' 'libpng12' 'ncurses5-compat-libs')
+#checkdepends=()
+
+# Package Relations
+#provides=()
+#conflicts=()
+#replaces=()
+
+# Others
+#backup=()
+#options=()
+#install=
+#changelog=
+
+# Sources
+source=("https://github.com/probonopd/AppImageKit/archive/"${pkgver}".tar.gz")
+#source_i686=()
+#source_x86_64=()
+#noextract=()
+#validpgpkeys=()
+
+# Integrity
+#md5sums=()
+#sha1sums=()
+sha256sums=('d75ada40df1ac7f4ba59a82b2df77d43f50910486593c24413d1c4bf0ef80bec')
+
+#pkgver() {
+#}
+
+#prepare() {
+#}
+
+build() {
+  cd AppImageKit-$pkgver
+  cmake .
+  make clean
+  make
+}
+
+#check() {
+#}
+
+package() {
+  install -dm755 "$pkgdir/opt/${pkgname}"
+  cd AppImageKit-$pkgver
+  for i in AppRun; do
+	  [ -f "$i" ] && cp -v "$i" "${pkgdir}/opt/${pkgname}/${i}"
+  done
+  for i in AppImageAssistant AppImageExtract AppImageMonitor; do
+    [ -f "$i" ] && cp -v "$i" "${pkgdir}/opt/${pkgname}/${i}.AppImage"
+  done
+}
