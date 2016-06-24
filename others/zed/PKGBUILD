@@ -1,0 +1,77 @@
+# Maintainer=rafaelsoaresbr <rafaelsoaresbr@gmail.com>
+# zed
+# Contributing: https://github.com/rafaelsoaresbr/pkgbuild
+# Builds: https://gitlab.com/rafaelsoaresbr/pkgbuild/builds
+#pkgbase=()
+pkgname=('zed')
+
+# Version
+pkgver=1.1.0
+pkgrel=1
+#epoch=
+
+# Generic
+pkgdesc="Webserver of Kimchi - a cherrypy framework for multi-purpose plug-ins"
+arch=('x86_64' 'i686')
+url="http://kimchi-project.github.io/wok/"
+license=('AGPL2.1' 'Apache')
+#groups=()
+
+# Dependencies
+#depends=()
+#optdepends=()
+#makedepends=()
+#checkdepends=()
+
+# Package Relations
+#provides=()
+conflicts=('zed-git')
+#replaces=()
+
+# Others
+#backup=()
+#options=()
+#install=
+#changelog=
+
+# Sources
+source=('https://github.com/zedapp/zed/archive/v'${pkgver}'.tar.gz')
+#source_i686=("")
+#source_x86_64=("")
+#noextract=()
+#validpgpkeys=()
+
+# Integrity
+#md5sums=()
+#md5sums_i686=()
+#md5sums_x86_64=()
+#sha1sums=()
+sha256sums=('8e04d19e911442a5e4ca16f740803227268e951dbd60ca6aa7bad76c5e4942c8')
+
+#pkgver() {
+#}
+
+#prepare() {
+#}
+
+build() {
+  cd "$srcdir/zed-${pkgver}"
+  make apps-native
+}
+
+#check() {
+#}
+
+package () {
+  install -dm755 ${pkgdir}/usr/bin
+  install -dm755 ${pkgdir}/usr/lib/zed
+  install -dm755 ${pkgdir}/usr/share/applications
+  cd "$srcdir/zed-${pkgver}"
+  cp -a nw/build/zed/* ${pkgdir}/usr/lib/zed
+	cp Zed.png Zed.svg ${pkgdir}/usr/lib/zed
+	sed "3cDIR=/usr/lib/zed" < nw/zed-linux > Zed.sh
+	sed s:%PREFIX%:/usr:g < Zed.desktop.tmpl > Zed.desktop
+	cp Zed.sh ${pkgdir}/usr/bin/zed
+	chmod a+x ${pkgdir}/usr/bin/zed
+	cp Zed.desktop ${pkgdir}/usr/share/applications
+}
