@@ -7,7 +7,7 @@ build () {
   cd ../../
 }
 
-for i in $(git diff --name-only --relative=${1} HEAD^ HEAD | cut -f1 -d'/' | sort -u);
+for i in $(git diff --name-only --relative=${1:-aur} HEAD^ HEAD | cut -f1 -d'/' | sort -u);
 do
-  build ${1} ${i}
+  build ${1:-aur} ${i}
 done
