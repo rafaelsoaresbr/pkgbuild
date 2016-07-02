@@ -1,7 +1,7 @@
 # Maintainer=rafaelsoaresbr <rafaelsoaresbr at gmail dot com>
 # appimagekit
-# Contributing: https://github.com/rafaelsoaresbr/appimagekit.git
-# Builds: https://gitlab.com/rafaelsoaresbr/appimagekit/builds
+# Contributing: https://github.com/rafaelsoaresbr/pkgbuild
+# Builds: https://gitlab.com/rafaelsoaresbr/pkgbuild/builds
 #pkgbase=
 pkgname=appimagekit
 
