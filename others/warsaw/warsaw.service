@@ -1,0 +1,8 @@
+[Unit]
+Description=Handle Warsaw
+
+[Service]
+ExecStart=/usr/local/bin/warsaw/core
+
+[Install]
+WantedBy=multi-user.target

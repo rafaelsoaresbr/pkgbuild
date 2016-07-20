@@ -1,0 +1,1 @@
+echo "Run /usr/local/bin/warsaw/postinst and start warsaw.service"
