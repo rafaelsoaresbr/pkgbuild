@@ -19,7 +19,7 @@ built(){
 find_deps() {
   (
   set -e
-  cmd < "${basedir}/$1/$2/.SRCINFO" | sed -nr 's/^\W*depends = ([-a-zA-Z0-9]+).*$/\1/p' | while read -r dep; do
+  cmd < "$(makepkg --printsrcinfo)" | sed -nr 's/^\W*depends = ([-a-zA-Z0-9]+).*$/\1/p' | while read -r dep; do
     if [ -d "$basedir/$1/$dep" ]; then
       echo $"{dep}"
     fi
@@ -36,24 +36,26 @@ build() {
     echo "Cannot find PKGBUILD in $packagedir"
     return 1
   fi
-  if built $pkgname; then
+  if built "$packagename"; then
     echo "Package $packagename already built"
     return
   fi
   if [ ! -f "$packagedir/.SRCINFO" ]; then
-    mksrcinfo
+    makepkg --printsrcinfo > "$packagedir/.SRCINFO"
   fi
+  cd "$packagedir"
   find_deps "$1" "$packagename" | while read -r dep; do
-    if built $dep; then
+    if built "$dep"; then
       build "$1" "$dep"
     fi
   done
-  cd "$packagedir"
-  mksrcinfo
-  rm -f ./*.pkg.tar.xz
   mkdir -p "$basedir/pkg"
-  makechrootpkg -r "$chroot" -l "$reponame" -- -i
-  mv ./*.pkg.tar.xz "$basedir/pkg"
+  if (exists mkarchroot); then
+    makechrootpkg -r "$chroot" -l "$reponame" -- -i
+    mv ./*.pkg.tar.xz "$basedir/pkg"
+  else
+    makepkg -s --noconfirm --noprogressbar
+  fi
   )
 }
 
@@ -71,7 +73,7 @@ if [ "$#" -lt 2 ]; then
 else
   # Build only requested packages
   reponame=$1
-  for pkg in "$@:2"; do
+  for pkg in "${@:-2}"; do
     build "$reponame" "$pkg"
   done
 fi
