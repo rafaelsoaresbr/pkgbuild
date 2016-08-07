@@ -6,7 +6,7 @@ stages:
 job_makepkg:
   stage: build
   script:
-    - ./build.sh
+    - ./build.sh mate mate-common
   tags:
     - arch
-    - shell
+    - virtualbox
