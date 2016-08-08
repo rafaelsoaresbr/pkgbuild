@@ -2,8 +2,7 @@
 # Maintainer : Martin Wimpress <code@flexion.org>
 
 _ver=1.12
-_pkgbase=eom
-pkgname=(${_pkgbase}-gtk3)
+pkgname=eom
 pkgver=${_ver}.2
 pkgrel=1
 pkgdesc="An image viewing and cataloging program for MATE (GTK3 version [EXPERIMENTAL])"
@@ -11,18 +10,18 @@ url="http://mate-desktop.org"
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=('dbus-glib' 'desktop-file-utils' 'gobject-introspection-runtime' 'gtk3' 'exempi'
-         'lcms2' 'libexif' 'libjpeg-turbo' 'librsvg' 'mate-desktop-gtk3>=1.12'
+         'lcms2' 'libexif' 'libjpeg-turbo' 'librsvg' 'mate-desktop>=1.12'
          'startup-notification' 'zlib')
 makedepends=('mate-common' 'gobject-introspection' 'yelp-tools')
 optdepends=('yelp: for reading MATE help documents')
-groups=('mate-extra-gtk3')
-conflicts=("${_pkgbase}")
-source=("http://pub.mate-desktop.org/releases/${_ver}/${_pkgbase}-${pkgver}.tar.xz")
+groups=('mate-extra')
+conflicts=("${pkgname}")
+source=("http://pub.mate-desktop.org/releases/${_ver}/${pkgname}-${pkgver}.tar.xz")
 sha1sums=('3b94e003ad2d29dd04f79198f9e03d823c285d50')
-install=${_pkgbase}.install
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/${_pkgbase}-${pkgver}"
+    cd "${srcdir}/${pkgname}-${pkgver}"
     ./configure \
         --prefix=/usr \
         --localstatedir=/var \
@@ -33,6 +32,6 @@ build() {
 }
 
 package() {
-    cd "${srcdir}/${_pkgbase}-${pkgver}"
+    cd "${srcdir}/${pkgname}-${pkgver}"
     make DESTDIR="${pkgdir}" install
 }

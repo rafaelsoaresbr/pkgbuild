@@ -1,31 +1,31 @@
 # Maintainer : Martin Wimpress <code@flexion.org>
 
-_ver=1.12
-_pkgbase=caja
-pkgname=${_pkgbase}-gtk3
-pkgver=${_ver}.6
+_ver=1.15
+pkgname=caja
+pkgname=caja
+pkgver=${_ver}.3
 pkgrel=1
 pkgdesc="File manager for the MATE desktop (GTK3 version [EXPERIMENTAL])"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=('dbus' 'desktop-file-utils' 'exempi' 'gtk3' 'gvfs' 'libexif'
-         'libunique3' 'libxt' 'mate-desktop-gtk3>=1.12'
+         'libunique3' 'libxt' 'mate-desktop>=1.15'
          'startup-notification')
 makedepends=('gobject-introspection' 'mate-common')
 optdepends=('gstreamer: automatic media playback when mouseover'
             'gvfs-smb: To connect to Samba/Windows shares')
-groups=('mate-gtk3')
-conflicts=("${_pkgbase}")
-source=("http://pub.mate-desktop.org/releases/${_ver}/${_pkgbase}-${pkgver}.tar.xz")
-sha1sums=('8e69164061fb8d21d2f887d1321b94d5225abe02')
-install=${_pkgbase}.install
+groups=('mate')
+conflicts=("${pkgname}")
+source=("http://pub.mate-desktop.org/releases/${_ver}/${pkgname}-${pkgver}.tar.xz")
+sha1sums=('df54b9862433583a4ddeaf5213aa448b4dee994d')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/${_pkgbase}-${pkgver}"
+    cd "${srcdir}/${pkgname}-${pkgver}"
     ./configure \
         --prefix=/usr \
-        --libexecdir=/usr/lib/${_pkgbase} \
+        --libexecdir=/usr/lib/${pkgname} \
         --with-gtk=3.0 \
         --enable-unique \
         --enable-introspection \
@@ -35,6 +35,6 @@ build() {
 }
 
 package() {
-    cd "${srcdir}/${_pkgbase}-${pkgver}"
+    cd "${srcdir}/${pkgname}-${pkgver}"
     make DESTDIR="${pkgdir}" install
 }
