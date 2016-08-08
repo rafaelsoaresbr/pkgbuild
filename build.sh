@@ -23,6 +23,7 @@ build() {
   (
   set -e
   packagename="$1"
+  packagedir="$basedir/$reponame/$packagename"
   if [ ! -f "$packagedir/PKGBUILD" ]; then
     echo "Cannot find PKGBUILD in $packagedir"
     return 1
