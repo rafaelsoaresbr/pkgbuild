@@ -6,7 +6,7 @@
 pkgname=('ginger-base')
 
 # Version
-pkgver=2.2.0
+pkgver=2.2.2
 pkgrel=1
 #epoch=
 
@@ -22,7 +22,7 @@ depends=('python2-configobj'
          'python2-pyparted'
          'wokd')
 #optdepends=()
-makedepends=('git')
+#makedepends=()
 #checkdepends=()
 
 # Package Relations
