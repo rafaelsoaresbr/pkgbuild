@@ -6,7 +6,7 @@
 pkgname=('wokd')
 
 # Version
-pkgver=2.2.0
+pkgver=2.3.1
 pkgrel=1
 #epoch=
 
@@ -33,7 +33,7 @@ depends=('logrotate'
          'ttf-font-awesome'
          'ttf-opensans')
 #optdepends=()
-makedepends=('git')
+#makedepends=()
 #checkdepends=()
 
 # Package Relations
