@@ -6,8 +6,8 @@
 # Contributor: Stephan Conrad <stephan.conrad@gmail.com
 
 pkgname=kimchi
-pkgver=2.2.0
-pkgrel=2
+pkgver=2.3.1
+pkgrel=1
 
 pkgdesc="An HTML5 management interface for KVM"
 
